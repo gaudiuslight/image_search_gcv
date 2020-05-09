@@ -2,3 +2,4 @@
 gc_venv
 apikey.json
 *.png
+.vscode

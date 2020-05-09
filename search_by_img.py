@@ -1,4 +1,3 @@
-# from oauth2client.client import GoogleCredentials
 from google.cloud import vision
 from google.cloud.vision import types
 from request import Request
@@ -8,9 +7,7 @@ import pickle
 import io
 import os
 
-## batch_name and numbering are used especially for collecting data needed for training
-## but they will be also useful for new unknown data that come from the same source
-## for example -> classifying new images from a certain site/page/directory
+
 def search_images(infos = {}, source=None, count_start = 0, batch = 'new'):
     images = []
     requests = []
@@ -57,7 +54,7 @@ def search_images(infos = {}, source=None, count_start = 0, batch = 'new'):
         print('WARNING: not valid form of source')
         return
     
-    # INIZIALIZZA CLIENT
+    # Initialize Client
     client = vision.ImageAnnotatorClient()
     # limiti di images per batch
     if len(images) > 16:
@@ -96,8 +93,6 @@ def search_images(infos = {}, source=None, count_start = 0, batch = 'new'):
     return infos
 
 def save_to_file(info_to_save, file_name='tmp'):
-    # with open(file_name + '.pickle', 'wb') as handle:
-    #     pickle.dump(info_to_save, handle, protocol=pickle.HIGHEST_PROTOCOL)
     with io.open(file_name + '.json', 'w',encoding='utf8') as fp:
         _str = json.dumps(info_to_save,
                       indent=4, sort_keys=True,
@@ -109,13 +104,11 @@ def main():
     # handle requests desired
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./apikey.json"
     my_infos = {}   
-    print("START")
     # my_infos = search_images(my_infos, ['D:/annotate.png'])
     # print(my_infos["annotate_from_new"]["ocr"]["text"])
     # save_to_file(my_infos, 'annotates')
 
 if __name__ == "__main__":
-    print("...")
     main()
 
 

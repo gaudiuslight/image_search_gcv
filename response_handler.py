@@ -1,4 +1,3 @@
-# from oauth2client.client import GoogleCredentials
 from urllib.parse import urlparse
 import random
 import six
